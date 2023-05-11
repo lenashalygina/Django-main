@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Announcements</h1>
+    {% for announcement in announcements %}
+        <h2><a href="{% url 'announcement_detail' pk=announcement.pk %}">{{ announcement.title }}</a></h2>
+        <p>{{ announcement.description }}</p>
+        <p>Price: ${{ announcement.price }}</p>

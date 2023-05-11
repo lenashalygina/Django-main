@@ -1,0 +1,33 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from models import Todo
+from forms import TodoForm
+
+
+def todo_list(request):
+    todos = Todo.objects.all()
+    return render(request, 'todo_list.html', {'todos': todos})
+
+
+def todo_create(request):
+    form = TodoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('todo_list')
+    return render(request, 'todo_form.html', {'form': form})
+
+
+def todo_update(request, pk):
+    todo = get_object_or_404(Todo, pk=pk)
+    form = TodoForm(request.POST or None, instance=todo)
+    if form.is_valid():
+        form.save()
+        return redirect('todo_list')
+    return render(request, 'todo_form.html', {'form': form, 'todo': todo})
+
+
+def todo_delete(request, pk):
+    todo = get_object_or_404(Todo, pk=pk)
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('todo_list')
+    return render(request, 'todo_confirm_delete.html', {'todo': todo})

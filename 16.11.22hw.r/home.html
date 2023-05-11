@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        {% block navbar %}{{ navbar }}{% endblock %}
+    </header>
+    <main>
+        {% block main %}{{ main|upper }}{% endblock %}
+    </main>
+    <footer>
+        {% block footer %}{{ footer }}{% endblock %}
+    </footer>
+    <base href="{{ base }}">
+</body>
+</html>

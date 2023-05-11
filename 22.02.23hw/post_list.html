@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Post List</h1>
+    <ul>
+        {% for post in object_list %}
+            <li>{{ post.title }} by {{ post.author }} at {{ post.created_at }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
