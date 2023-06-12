@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load my_filters_and_tags %}
+
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content|linebreaksbr }}</p>
+    <p>Tags: {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    <p>Excerpt: {% cut post.content 100 "..." %}</p>
+    <p>Reversed content: {{ post.content|reverse_text }}</p>
+    <p>Repeated title: {% repeat_text post.title 3 %}</p>
+
+</body>
+</html>
