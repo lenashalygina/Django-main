@@ -1,4 +1,4 @@
-#скобочки
+# скобочки
 def is_balanced(string):
     stack = []
     opening_brackets = ['(', '[', '{']
@@ -17,7 +17,8 @@ def is_balanced(string):
 
     return len(stack) == 0
 
-#пересечение
+
+# пересечение
 from collections import defaultdict
 
 
