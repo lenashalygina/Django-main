@@ -1,10 +1,52 @@
+<!-- post_list.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Post List</h1>
-    <ul>
-        {% for post in object_list %}
-            <li>{{ post.title }} by {{ post.author }} at {{ post.created_at }}</li>
-        {% endfor %}
-    </ul>
+  <h1>Post List</h1>
+  {% for post in post_list %}
+    <div class="post">
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.content }}</p>
+      <p>{{ post.author }}</p>
+      <p>{{ post.created_at }}</p>
+      <a href="{% url 'posts:post_detail' pk=post.pk %}">View Details</a>
+    </div>
+  {% empty %}
+    <p>No posts available.</p>
+  {% endfor %}
+{% endblock %}
+
+<!-- post_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>{{ post.author }}</p>
+  <p>{{ post.created_at }}</p>
+  <p>{{ post.likes.count }} likes</p>
+  <form action="{% url 'posts:post_like' pk=post.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Like</button>
+  </form>
+  <h2>Comments</h2>
+  {% for comment in post.comments.all %}
+    <div class="comment">
+      <p>{{ comment.content }}</p>
+      <p>{{ comment.author }}</p>
+      <p>{{ comment.created_at }}</p>
+      {% if request.user == comment.author %}
+        <a href="{% url 'posts:comment_update' pk=comment.pk %}">Edit</a>
+        <a href="{% url 'posts:comment_delete' pk=comment.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+  <h3>Add a Comment</h3>
+  <form action="{% url 'posts:comment_create' pk=post.pk %}" method="post">
+    {% csrf_token %}
+    <textarea name="content"></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
 {% endblock %}
