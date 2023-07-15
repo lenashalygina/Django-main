@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./django_app
+    ports:
+      - "8000:8000"
+
+  flask:
+    build:
+      context: ./flask_app
+    ports:
+      - "5001:5001"
+
+  fastapi:
+    build:
+      context: ./fastapi_app
+    ports:
+      - "8002:8002"
