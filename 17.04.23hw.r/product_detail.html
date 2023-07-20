@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Detail</title>
+</head>
+<body>
+    <h1>{{ product.title }} - {{ product.price }}</h1>
+    <p>{{ product.description }}</p>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in product.comments.all %}
+        <li>{{ comment.text }} - {{ comment.datetime_created }}</li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
